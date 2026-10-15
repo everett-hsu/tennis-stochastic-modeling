@@ -1,0 +1,10 @@
+# RStudio local files
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Local study notes (not part of the group repository)
+notes/
+
+.DS_Store
