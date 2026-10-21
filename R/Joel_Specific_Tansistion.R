@@ -87,6 +87,14 @@ p01 <- tab[1, 2] / sum(tab[1, ])
 p11 <- tab[2, 2] / sum(tab[2, ])
 
 difference <- p11 - p01
+ci01 <- prop.test(
+  x = n01, n = n00 + n01,
+  correct = FALSE
+)$conf.int
+ci11 <- prop.test(
+  x = n11, n = n10 + n11,
+  correct = FALSE
+)$conf.int
 
 data.frame(
   n00 = n00,
@@ -96,9 +104,26 @@ data.frame(
   n = n,
   p01 = p01,
   p11 = p11,
-  difference = difference
+  difference = difference,
+  ci01_lower = ci01[1],
+  ci01_upper = ci01[2],
+  ci11_lower = ci11[1],
+  ci11_upper = ci11[2]
 )
   })
 
 # Combine player results
 results_table <- do.call(rbind, results)
+results_table$player <- rownames(results_table)
+
+
+dotchart(
+  100 * results_table$difference,
+  labels = results_table$player,
+  xlab = "p11 - p01 (percentage points)",
+  main = "Within-game transition differences by server"
+)
+abline(v = 0, lty = 2, col = "gray40")
+
+
+write.csv(results_table, "player_transition_results.csv", row.names = FALSE)
