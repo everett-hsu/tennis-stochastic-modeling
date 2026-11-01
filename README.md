@@ -37,15 +37,3 @@ source("04_monte_carlo.R")
 source("05_scoring_amplification.R")
 ```
 
-Scripts 00--03 and 05 print their results when sourced. Script 04 only defines
-the simulation functions. Run its default demonstration explicitly:
-
-```r
-mc_demo <- run_wimbledon_monte_carlo(B = 49, seed = 46001)
-```
-
-The 49-replicate run demonstrates the algorithm; it is not expected to
-reproduce the manuscript's saved 999-replicate Monte Carlo value. The nominal
-chi-square calculation, match-clustered interval, and estimator-matched Monte
-Carlo diagnostic have different interpretations, and none proves that all
-service points are independent.
